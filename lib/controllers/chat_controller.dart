@@ -93,9 +93,9 @@ class ChatController extends GetxController {
     // Build message history for LLM
     final history = chat.messages
         .where((m) => !m.isSystem)
-        .map((m) => LlamaChatMessage(
+        .map((m) => LlamaChatMessage.fromText(
               role: m.isUser ? LlamaChatRole.user : LlamaChatRole.assistant,
-              content: m.content,
+              text: m.content,
             ))
         .toList();
 
@@ -105,9 +105,9 @@ class ChatController extends GetxController {
         : systemPrompt.value;
     
     if (activeSystemPrompt.isNotEmpty) {
-      history.insert(0, LlamaChatMessage(
+      history.insert(0, LlamaChatMessage.fromText(
         role: LlamaChatRole.system, 
-        content: activeSystemPrompt
+        text: activeSystemPrompt
       ));
     }
 
@@ -137,7 +137,7 @@ class ChatController extends GetxController {
     try {
       final stream = _llm.generateChatCompletion(
         messages: history,
-        params: GenerationParams(temperature: temperature.value),
+        params: GenerationParams(temp: temperature.value),
       );
 
       await for (final chunk in stream) {
