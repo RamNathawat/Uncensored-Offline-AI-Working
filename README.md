@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>Uncensored Local AI Multi-Platform</h1>
+  <h1>Anima Multi-Platform</h1>
 
   <p><strong>Run unrestricted AI models entirely on your device.<br/>No cloud. No filters. No limits.</strong></p>
 
@@ -13,7 +13,7 @@
 
 ## Overview
 
-**Uncensored Local AI** is a mobile-first application that runs powerful open-source AI models directly on your **Android or iOS device** — with zero censorship, zero cloud dependency, and zero monthly fees.
+**Anima** is a mobile-first application that runs powerful open-source AI models directly on your **Android or iOS device** — with zero censorship, zero cloud dependency, and zero monthly fees.
 
 No API keys. No subscriptions. No content restrictions. Your conversations never leave your device.
 
@@ -23,7 +23,7 @@ No API keys. No subscriptions. No content restrictions. Your conversations never
 
 **🎥 Watch the Setup & Demo Video: [https://youtu.be/2Pnv68iHIaQ](https://youtu.be/2Pnv68iHIaQ)**
 
-[![Uncensored Local AI Demo](https://img.youtube.com/vi/2Pnv68iHIaQ/maxresdefault.jpg)](https://youtu.be/2Pnv68iHIaQ)
+[![Anima Demo](https://img.youtube.com/vi/2Pnv68iHIaQ/maxresdefault.jpg)](https://youtu.be/2Pnv68iHIaQ)
 
 ---
 
@@ -126,7 +126,7 @@ If you encounter issues on desktop, please [open an issue](https://github.com/te
 
 ## Local API Server
 
-**Uncensored Local AI** includes a built-in **OpenAI-compatible REST API** so you can connect it to any external tool, script, or IDE extension.
+**Anima** includes a built-in **OpenAI-compatible REST API** so you can connect it to any external tool, script, or IDE extension.
 
 ### Setup
 

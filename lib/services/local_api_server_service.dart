@@ -222,7 +222,7 @@ class LocalApiServerService extends GetxService {
               'id': modelId,
               'object': 'model',
               'created': 0,
-              'owned_by': 'uncensored-local-ai',
+              'owned_by': 'anima',
             },
           ]
         : <Map<String, dynamic>>[];
