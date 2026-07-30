@@ -1,0 +1,24 @@
+```
+# Dependencies
+.pub/
+.buildlog
+.flutter-plugins
+.flutter-plugin-dependencies
+.packages
+
+# Build outputs
+build/
+.dart_tool/
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+```
