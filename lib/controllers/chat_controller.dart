@@ -104,8 +104,31 @@ class ChatController extends GetxController {
         ? chat.systemPrompt
         : systemPrompt.value;
     
+    // Estimate available characters for history to prevent hitting context limits
+    // We assume contextSize is at least 4096 on Android (from llm_service).
+    // We want to leave 2048 tokens for the AI response (maxTokens), so we have ~2048 tokens for history.
+    // 1 token ≈ 4 characters. So 2048 tokens ≈ 8192 characters.
+    int availableChars = 8192;
+    
     if (activeSystemPrompt.isNotEmpty) {
-      history.insert(0, LlamaChatMessage.fromText(
+      availableChars -= activeSystemPrompt.length;
+    }
+
+    // Prune history to keep only the most recent messages that fit
+    final List<LlamaChatMessage> prunedHistory = [];
+    int currentChars = 0;
+    
+    for (final msg in history.reversed) {
+      final msgLen = msg.text.length;
+      if (currentChars + msgLen > availableChars && prunedHistory.isNotEmpty) {
+        break; // Stop adding older messages if we run out of room
+      }
+      prunedHistory.insert(0, msg);
+      currentChars += msgLen;
+    }
+
+    if (activeSystemPrompt.isNotEmpty) {
+      prunedHistory.insert(0, LlamaChatMessage.fromText(
         role: LlamaChatRole.system, 
         text: activeSystemPrompt
       ));
@@ -135,7 +158,7 @@ class ChatController extends GetxController {
 
     try {
       final stream = _llm.generateChatCompletion(
-        messages: history,
+        messages: prunedHistory,
         params: GenerationParams(
           temp: temperature.value,
           maxTokens: 2048,
