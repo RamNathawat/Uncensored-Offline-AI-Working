@@ -136,7 +136,10 @@ class ChatController extends GetxController {
     try {
       final stream = _llm.generateChatCompletion(
         messages: history,
-        params: GenerationParams(temp: temperature.value),
+        params: GenerationParams(
+          temp: temperature.value,
+          maxTokens: 2048,
+        ),
       );
 
       await for (final chunk in stream) {
