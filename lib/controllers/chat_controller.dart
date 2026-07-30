@@ -128,7 +128,6 @@ class ChatController extends GetxController {
       if (charBuffer.isNotEmpty) {
         streamedResponse.value += charBuffer.removeAt(0);
         aiMsg.content = streamedResponse.value;
-        chats.refresh();
       } else if (streamDone) {
         timer.cancel();
       }

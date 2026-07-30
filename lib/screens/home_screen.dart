@@ -39,14 +39,24 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _mobileScaffoldKey =
       GlobalKey<ScaffoldState>();
 
+  Worker? _scrollWorker;
+
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_handleChatScroll);
+    
+    // Auto-scroll as text streams in, without rebuilding the whole list
+    _scrollWorker = ever(_chatCtrl.streamedResponse, (_) {
+      if (_chatCtrl.isGenerating.value) {
+        _scrollToBottom();
+      }
+    });
   }
 
   @override
   void dispose() {
+    _scrollWorker?.dispose();
     _scrollController.removeListener(_handleChatScroll);
     _scrollController.dispose();
     _msgController.dispose();

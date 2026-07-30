@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../theme/app_colors.dart';
 import '../models/message_model.dart';
 import '../services/llm_service.dart';
+import '../controllers/chat_controller.dart';
 
 class ChatBubble extends StatelessWidget {
   final MessageModel message;
@@ -68,50 +69,55 @@ class ChatBubble extends StatelessWidget {
     }
 
     // AI: render markdown
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 3),
-          child: MarkdownBody(
-            data: message.content,
-            selectable: true,
-            styleSheet: MarkdownStyleSheet(
-              p: TextStyle(fontSize: 15, color: context.text, height: 1.7),
-              h1: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: context.text),
-              h2: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: context.text),
-              h3: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: context.text),
-              code: TextStyle(
-                fontFamily: 'monospace',
-                fontSize: 13,
-                color: const Color(0xFFE6EDF3),
-                backgroundColor: context.isDark
-                    ? Colors.white.withOpacity(0.08)
-                    : Colors.black.withOpacity(0.06),
-              ),
-              codeblockDecoration: BoxDecoration(
-                color: const Color(0xFF1E1E2E),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              codeblockPadding: const EdgeInsets.all(14),
-              blockquoteDecoration: BoxDecoration(
-                color: AppColors.accent.withOpacity(0.08),
-                border: const Border(
-                  left: BorderSide(color: AppColors.accent, width: 3),
+    return Obx(() {
+      final chatCtrl = Get.find<ChatController>();
+      final isStreaming = chatCtrl.isGenerating.value && showSpeed;
+      final textToRender = isStreaming ? chatCtrl.streamedResponse.value : message.content;
+      
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 3),
+            child: MarkdownBody(
+              data: textToRender,
+              selectable: true,
+              styleSheet: MarkdownStyleSheet(
+                p: TextStyle(fontSize: 15, color: context.text, height: 1.7),
+                h1: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: context.text),
+                h2: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: context.text),
+                h3: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: context.text),
+                code: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 13,
+                  color: const Color(0xFFE6EDF3),
+                  backgroundColor: context.isDark
+                      ? Colors.white.withOpacity(0.08)
+                      : Colors.black.withOpacity(0.06),
                 ),
-              ),
-              blockquotePadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              listBullet: TextStyle(color: context.text),
-              tableHead: TextStyle(fontWeight: FontWeight.w600, color: context.text, fontSize: 14),
-              tableBody: TextStyle(color: context.text, fontSize: 14),
-              tableBorder: TableBorder.all(color: context.border),
-              tableCellsPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              horizontalRuleDecoration: BoxDecoration(
-                border: Border(top: BorderSide(color: context.border)),
+                codeblockDecoration: BoxDecoration(
+                  color: const Color(0xFF1E1E2E),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                codeblockPadding: const EdgeInsets.all(14),
+                blockquoteDecoration: BoxDecoration(
+                  color: AppColors.accent.withOpacity(0.08),
+                  border: const Border(
+                    left: BorderSide(color: AppColors.accent, width: 3),
+                  ),
+                ),
+                blockquotePadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                listBullet: TextStyle(color: context.text),
+                tableHead: TextStyle(fontWeight: FontWeight.w600, color: context.text, fontSize: 14),
+                tableBody: TextStyle(color: context.text, fontSize: 14),
+                tableBorder: TableBorder.all(color: context.border),
+                tableCellsPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                horizontalRuleDecoration: BoxDecoration(
+                  border: Border(top: BorderSide(color: context.border)),
+                ),
               ),
             ),
           ),
-        ),
 
         // Action row: Copy + Speed
         if (message.content.isNotEmpty)
@@ -172,5 +178,6 @@ class ChatBubble extends StatelessWidget {
           ),
       ],
     );
+    });
   }
 }
