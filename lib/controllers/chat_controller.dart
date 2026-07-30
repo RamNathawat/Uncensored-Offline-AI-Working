@@ -105,10 +105,10 @@ class ChatController extends GetxController {
         : systemPrompt.value;
     
     // Estimate available characters for history to prevent hitting context limits
-    // We assume contextSize is at least 4096 on Android (from llm_service).
-    // We want to leave 2048 tokens for the AI response (maxTokens), so we have ~2048 tokens for history.
-    // 1 token ≈ 4 characters. So 2048 tokens ≈ 8192 characters.
-    int availableChars = 8192;
+    // We assume contextSize is 8192 on all devices.
+    // We want to leave 2048 tokens for the AI response (maxTokens), so we have ~6144 tokens for history.
+    // 1 token ≈ 4 characters. So 6144 tokens ≈ 24576 characters.
+    int availableChars = 24576;
     
     if (activeSystemPrompt.isNotEmpty) {
       availableChars -= activeSystemPrompt.length;

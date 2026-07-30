@@ -148,9 +148,9 @@ class LlmService extends GetxService {
       }
 
       // Use smaller context on Android to prevent OOM kills.
-      // The user reported responses getting cut off. A context size of 1024 is too small
-      // for modern phones with 6GB+ RAM. We will use 4096 for Android and 8192 for desktop.
-      final contextSize = Platform.isAndroid ? 4096 : 8192;
+      // The user wants ChatGPT style long conversations. We will push the context size
+      // to 8192. The S21 FE has 6-8GB of RAM, which can handle an 8k context window.
+      final contextSize = 8192;
       // Map the string backend to GpuBackend enum
       final storage = Get.find<ChatStorageService>();
       GpuBackend parsedBackend;
