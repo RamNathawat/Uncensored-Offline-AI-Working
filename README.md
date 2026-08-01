@@ -33,9 +33,9 @@ No API keys. No subscriptions. No content restrictions. Your conversations never
 
 | APK | Architecture | Best For | Size |
 |-----|-------------|----------|------|
-| [**app-arm64-v8a-release.apk**](https://github.com/techjarves/Uncensored-Local-AI-Multiplatform/releases/download/v2.0.0/app-arm64-v8a-release.apk) | ARM 64-bit | **Most phones (2018+)** | ~65 MB |
-| [**app-armeabi-v7a-release.apk**](https://github.com/techjarves/Uncensored-Local-AI-Multiplatform/releases/download/v2.0.0/app-armeabi-v7a-release.apk) | ARM 32-bit | Older/budget phones | ~18 MB |
-| [**app-x86_64-release.apk**](https://github.com/techjarves/Uncensored-Local-AI-Multiplatform/releases/download/v1.0.0/app-x86_64-release.apk) | x86 64-bit | Emulators / ChromeOS | ~58 MB |
+| [**app-arm64-v8a-release.apk**](https://github.com/RamNathawat/Uncensored-Offline-AI-Working/releases/download/latest/app-arm64-v8a-release.apk) | ARM 64-bit | **Most phones (2018+)** | ~65 MB |
+| [**app-armeabi-v7a-release.apk**](https://github.com/RamNathawat/Uncensored-Offline-AI-Working/releases/download/latest/app-armeabi-v7a-release.apk) | ARM 32-bit | Older/budget phones | ~18 MB |
+| [**app-x86_64-release.apk**](https://github.com/RamNathawat/Uncensored-Offline-AI-Working/releases/download/latest/app-x86_64-release.apk) | x86 64-bit | Emulators / ChromeOS | ~58 MB |
 
 > **Not sure which to pick?** Download `arm64-v8a` — it works on virtually all modern Android phones.
 
@@ -90,8 +90,8 @@ No API keys. No subscriptions. No content restrictions. Your conversations never
 **Prerequisites:** Mac with Xcode 15+ · [Flutter SDK](https://flutter.dev/docs/get-started/install)
 
 ```bash
-git clone https://github.com/techjarves/Uncensored-Local-AI-Multiplatform.git
-cd Uncensored-Local-AI-Multiplatform
+git clone https://github.com/RamNathawat/Uncensored-Offline-AI-Working.git
+cd Uncensored-Offline-AI-Working
 flutter pub get
 cd ios && pod install && cd ..
 flutter build ios --release
@@ -103,13 +103,13 @@ flutter build ios --release
 > Desktop builds compile successfully but may have rough edges. **We are actively looking for contributors** to help test and polish the desktop experience.
 
 ```bash
-git clone https://github.com/techjarves/Uncensored-Local-AI-Multiplatform.git
-cd Uncensored-Local-AI-Multiplatform
+git clone https://github.com/RamNathawat/Uncensored-Offline-AI-Working.git
+cd Uncensored-Offline-AI-Working
 flutter pub get
 flutter run -d windows   # or macos / linux
 ```
 
-If you encounter issues on desktop, please [open an issue](https://github.com/techjarves/Uncensored-Local-AI-Multiplatform/issues) — your feedback directly shapes the roadmap.
+If you encounter issues on desktop, please [open an issue](https://github.com/RamNathawat/Uncensored-Offline-AI-Working/issues) — your feedback directly shapes the roadmap.
 
 ---
 

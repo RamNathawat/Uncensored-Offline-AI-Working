@@ -10,6 +10,7 @@ import '../services/local_api_server_service.dart';
 import '../services/model_manager.dart';
 import '../services/background_optimizer_service.dart';
 import '../services/chat_storage_service.dart';
+import '../services/update_service.dart';
 
 class SettingsScreen extends StatelessWidget {
   /// When true, no Scaffold — just the body content for embedding in tabs.
@@ -646,6 +647,75 @@ class _SettingsBody extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
+              ),
+
+              const SizedBox(height: 28),
+
+              // ── Updates ───────────────────────────────────────────
+              _sectionHeader(context, 'App Updates'),
+              const SizedBox(height: 8),
+              _card(
+                context,
+                child: Obx(() {
+                  final updateSvc = Get.find<UpdateService>();
+                  final isChecking = updateSvc.isChecking.value;
+                  return Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: AppColors.accent.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Icon(Icons.system_update_rounded,
+                            color: AppColors.accent, size: 24),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Check for Updates',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  color: context.text),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'Download the latest version of Anima',
+                              style: TextStyle(
+                                  fontSize: 13, color: context.textM),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (isChecking)
+                        const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      else
+                        ElevatedButton(
+                          onPressed: () => updateSvc.checkForUpdates(),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.accent,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 0),
+                            minimumSize: const Size(0, 32),
+                          ),
+                          child: const Text('Check',
+                              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                        ),
+                    ],
+                  );
+                }),
               ),
 
               const SizedBox(height: 40),
